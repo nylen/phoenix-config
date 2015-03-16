@@ -2,8 +2,9 @@ function debug(message) {
     api.alert(message, 5);
 }
 
-var modSwitch = ['cmd'],
-    modMove   = ['alt', 'cmd'];
+var modSwitch   = ['cmd'],
+    modMoveGrid = ['alt', 'cmd'],
+    modMoveFull = ['ctrl', 'alt', 'cmd'];
 
 var splitLeftRight   = 6,
     splitTopBottom   = 7,
@@ -22,7 +23,8 @@ var spots = {
     bottomRight  : { x : [8, 12], y : [7, 12] },
 
     left  : { x : [0,  6], y : [0, 12] },
-    right : { x : [6, 12], y : [0, 12] }
+    right : { x : [6, 12], y : [0, 12] },
+    full  : { x : [0, 12], y : [0, 12] }
 };
 
 Window.prototype.moveToSpot = function(frame, spot) {
@@ -117,10 +119,10 @@ Window.prototype.getSpotInDirection = function(frame, dir) {
 };
 
 
-// modMove + arrow keys moves windows around in the grid
+// modMoveGrid + arrow keys moves windows around in the grid
 
 ['left', 'right', 'up', 'down'].forEach(function(dir) {
-    api.bind(dir, modMove, function() {
+    api.bind(dir, modMoveGrid, function() {
         var win    = Window.focusedWindow(),
             screen = win.screen(),
             frame  = screen.frameWithoutDockOrMenu();
@@ -129,18 +131,14 @@ Window.prototype.getSpotInDirection = function(frame, dir) {
 });
 
 
-// modMove + [ ] move windows to left or right half of screen
+// modMoveFull + left / right move windows to left or right half of screen
+// modMoveFull + up maximizes windows
 
-api.bind('[', modMove, function() {
-    var win    = Window.focusedWindow(),
-        screen = win.screen(),
-        frame  = screen.frameWithoutDockOrMenu();
-    win.moveToSpot(frame, spots.left);
-});
-
-api.bind(']', modMove, function() {
-    var win    = Window.focusedWindow(),
-        screen = win.screen(),
-        frame  = screen.frameWithoutDockOrMenu();
-    win.moveToSpot(frame, spots.right);
+['left', 'right', 'up'].forEach(function(dir) {
+    api.bind(dir, modMoveFull, function() {
+        var win    = Window.focusedWindow(),
+            screen = win.screen(),
+            frame  = screen.frameWithoutDockOrMenu();
+        win.moveToSpot(frame, (dir == 'up' ? spots.full : spots[dir]));
+    });
 });
