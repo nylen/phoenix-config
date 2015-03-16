@@ -9,7 +9,7 @@ var splitLeftRight   = 6,
     splitTopBottom   = 7,
     splitMiddleLeft  = 4,
     splitMiddleRight = 8,
-    margin = { x : 0, y : 25 };
+    margin = { x : 0, y : 0 };
 
 var spots = {
     gridSize     : 12,
@@ -120,7 +120,7 @@ Window.prototype.getSpotInDirection = function(frame, dir) {
     api.bind(dir, modMove, function() {
         var win    = Window.focusedWindow(),
             screen = win.screen(),
-            frame  = screen.frameIncludingDockAndMenu();
+            frame  = screen.frameWithoutDockOrMenu();
         win.moveToSpot(frame, win.getSpotInDirection(frame, dir));
     });
 });
