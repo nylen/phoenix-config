@@ -19,7 +19,10 @@ var spots = {
 
     bottomLeft   : { x : [0,  4], y : [7, 12] },
     bottomMiddle : { x : [4,  8], y : [7, 12] },
-    bottomRight  : { x : [8, 12], y : [7, 12] }
+    bottomRight  : { x : [8, 12], y : [7, 12] },
+
+    left  : { x : [0,  6], y : [0, 12] },
+    right : { x : [6, 12], y : [0, 12] }
 };
 
 Window.prototype.moveToSpot = function(frame, spot) {
@@ -123,4 +126,21 @@ Window.prototype.getSpotInDirection = function(frame, dir) {
             frame  = screen.frameWithoutDockOrMenu();
         win.moveToSpot(frame, win.getSpotInDirection(frame, dir));
     });
+});
+
+
+// modMove + [ ] move windows to left or right half of screen
+
+api.bind('[', modMove, function() {
+    var win    = Window.focusedWindow(),
+        screen = win.screen(),
+        frame  = screen.frameWithoutDockOrMenu();
+    win.moveToSpot(frame, spots.left);
+});
+
+api.bind(']', modMove, function() {
+    var win    = Window.focusedWindow(),
+        screen = win.screen(),
+        frame  = screen.frameWithoutDockOrMenu();
+    win.moveToSpot(frame, spots.right);
 });
