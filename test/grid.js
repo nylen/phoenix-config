@@ -7,28 +7,6 @@ var retina = {
         x : 12,
         y : 8
     },
-    screens = {
-        thunderbolt : {
-            frameWithoutDockOrMenu : function() {
-                return {
-                    x      : 0,
-                    y      : 0,
-                    width  : 12,
-                    height : 12
-                };
-            }
-        },
-        retina : {
-            frameWithoutDockOrMenu : function() {
-                return {
-                    x      : retina.x,
-                    y      : retina.y,
-                    width  : 12,
-                    height : 12
-                };
-            }
-        }
-    },
     grid;
 
 function checkOverlap(x1, w1, x2, w2, expected) {
@@ -56,18 +34,42 @@ describe('Grid base functionality', function() {
 });
 
 describe('Grid 1', function() {
-    beforeEach(function() {
-        grid = new Grid(screens, 12, {
-            thunderbolt : {
-                topLeft     : { x : [0,  6], y : [0,  6] },
-                topRight    : { x : [6, 12], y : [0,  6] },
-                bottomLeft  : { x : [0,  6], y : [6, 12] },
-                bottomRight : { x : [6, 12], y : [6, 12] }
-            },
-            retina : {
-                full : { x : [0, 12], y : [0, 12] }
+    var screens1 = {
+        thunderbolt : {
+            frameWithoutDockOrMenu : function() {
+                return {
+                    x      : 0,
+                    y      : 0,
+                    width  : 12,
+                    height : 12
+                };
             }
-        });
+        },
+        retina : {
+            frameWithoutDockOrMenu : function() {
+                return {
+                    x      : retina.x,
+                    y      : retina.y,
+                    width  : 12,
+                    height : 12
+                };
+            }
+        }
+    };
+    var grid1 = new Grid(screens1, 12, {
+        thunderbolt : {
+            topLeft     : { x : [0,  6], y : [0,  6] },
+            topRight    : { x : [6, 12], y : [0,  6] },
+            bottomLeft  : { x : [0,  6], y : [6, 12] },
+            bottomRight : { x : [6, 12], y : [6, 12] }
+        },
+        retina : {
+            full : { x : [0, 12], y : [0, 12] }
+        }
+    });
+
+    beforeEach(function() {
+        grid = grid1;
     });
 
     checkSlot( 0,  0, 'left', 'topLeft');
@@ -137,22 +139,103 @@ describe('Grid 1', function() {
 });
 
 describe('Grid 2', function() {
-    beforeEach(function() {
-        grid = new Grid(screens, 12, {
-            thunderbolt : {
-                topLeft      : { x : [0,  6], y : [0,  7] },
-                topRight     : { x : [6, 12], y : [0,  7] },
-                bottomLeft   : { x : [0,  4], y : [7, 12] },
-                bottomMiddle : { x : [4,  8], y : [7, 12] },
-                bottomRight  : { x : [8, 12], y : [7, 12] }
-            },
-            retina : {
-                full : { x : [0, 12], y : [0, 12] }
+    var screens2 = {
+        thunderbolt : {
+            frameWithoutDockOrMenu : function() {
+                return {
+                    x      : 0,
+                    y      : 0,
+                    width  : 2560,
+                    height : 1440
+                };
             }
-        });
+        },
+        retina : {
+            frameWithoutDockOrMenu : function() {
+                return {
+                    x      : 2560 * retina.x / 12,
+                    y      : 1440 * retina.y / 12,
+                    width  : 1440,
+                    height : 900
+                };
+            }
+        }
+    };
+    var grid2 = new Grid(screens2, 12, {
+        thunderbolt : {
+            topLeft      : { x : [0,  6], y : [0,  7] },
+            topRight     : { x : [6, 12], y : [0,  7] },
+            bottomLeft   : { x : [0,  4], y : [7, 12] },
+            bottomMiddle : { x : [4,  8], y : [7, 12] },
+            bottomRight  : { x : [8, 12], y : [7, 12] }
+        },
+        retina : {
+            full : { x : [0, 12], y : [0, 12] }
+        }
     });
 
-    checkSlot(0, 7, 'right', 'bottomMiddle');
-    checkSlot(4, 7, 'right', 'bottomRight');
-    checkSlot(8, 7, 'right', 'full');
+    beforeEach(function() {
+        grid = grid2;
+    });
+
+    var t = screens2.thunderbolt.frameWithoutDockOrMenu();
+
+    checkSlot(t.x + 0 * t.width / 12, t.y + 7 * t.height / 12, 'right', 'bottomMiddle');
+    checkSlot(t.x + 4 * t.width / 12, t.y + 7 * t.height / 12, 'right', 'bottomRight');
+    checkSlot(t.x + 8 * t.width / 12, t.y + 7 * t.height / 12, 'right', 'full');
+});
+
+describe('Grid 3', function() {
+    var screens3 = {
+        thunderbolt : {
+            frameWithoutDockOrMenu : function() {
+                return {
+                    x      : -2560,
+                    y      : -1012,
+                    width  : 2560,
+                    height : 1440
+                };
+            }
+        },
+        retina : {
+            frameWithoutDockOrMenu : function() {
+                return {
+                    x      : 0,
+                    y      : 0,
+                    width  : 1440,
+                    height : 900
+                };
+            }
+        }
+    };
+    var grid3 = new Grid(screens3, 12, {
+        thunderbolt : {
+            topLeft      : { x : [0,  6], y : [0,  7] },
+            topRight     : { x : [6, 12], y : [0,  7] },
+            bottomLeft   : { x : [0,  4], y : [7, 12] },
+            bottomMiddle : { x : [4,  8], y : [7, 12] },
+            bottomRight  : { x : [8, 12], y : [7, 12] }
+        },
+        retina : {
+            full : { x : [0, 12], y : [0, 12] }
+        }
+    });
+
+    beforeEach(function() {
+        grid = grid3;
+    });
+
+    var t = screens3.thunderbolt.frameWithoutDockOrMenu();
+
+    checkSlot(t.x + 0 * t.width / 12, t.y + 7 * t.height / 12, 'right', 'bottomMiddle');
+    checkSlot(t.x + 4 * t.width / 12, t.y + 7 * t.height / 12, 'right', 'bottomRight');
+    checkSlot(t.x + 8 * t.width / 12, t.y + 7 * t.height / 12, 'right', 'full');
+
+    checkSlot(t.x + 1 * t.width / 12, t.y + 8 * t.height / 12, 'right', 'bottomMiddle');
+    checkSlot(t.x + 5 * t.width / 12, t.y + 8 * t.height / 12, 'right', 'bottomRight');
+    checkSlot(t.x + 9 * t.width / 12, t.y + 8 * t.height / 12, 'right', 'full');
+
+    checkSlot(-2560, -164, 'right', 'bottomMiddle');
+    checkSlot(-1707, -164, 'right', 'bottomRight');
+    checkSlot( -854, -164, 'right', 'full');
 });
