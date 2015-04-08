@@ -152,11 +152,7 @@ Grid.prototype.slotInDirection = function(frame, dir) {
 
     var toReturn = firstMatch(
         candidates.filter.bind(candidates),
-        // Find a slot with some vertical overlap and no horizontal overlap
-        function(slot) {
-            return slot.overlap2 >= 0 && slot.overlap1 <= 0;
-        },
-        // Find a slot with some vertical overlap (and some horizontal overlap)
+        // Find a slot with some vertical overlap
         function(slot) {
             return slot.overlap2 >= 0;
         },

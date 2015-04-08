@@ -117,20 +117,17 @@ describe('Grid', function() {
     checkSlot( 8,  4, 'up', 'topRight');
 
     checkSlot(12,  0, 'up', 'topRight');
-    checkSlot(12,  8, 'up', 'bottomRight'); // XXX debatable
-    /*
-    checkSlot(13,  8, 'up', 'topRight');   // XXX debatable
-    checkSlot(13, 12, 'up', 'full');
-    checkSlot(13, 12, 'up', 'full');
-    checkSlot( 0,  6, 'up', 'topRight');
+    checkSlot(12,  8, 'up', 'bottomRight');
+    checkSlot(13,  8, 'up', 'bottomRight');
+    checkSlot(13, 12, 'up', 'bottomRight');
+    checkSlot( 0,  6, 'up', 'topLeft');
     checkSlot( 4, 12, 'up', 'topLeft');
     checkSlot( 6,  6, 'up', 'topRight');
-    checkSlot( 8,  6, 'up', 'full');
-    checkSlot( 8, 12, 'up', 'full');
-    checkSlot(12,  6, 'up', 'full');
-    checkSlot(12, 12, 'up', 'full');
-    checkSlot(13, 14, 'up', 'full');
-    checkSlot(13, 12, 'up', 'full');
-    checkSlot(13, 20, 'up', 'full');
-    // */
+    checkSlot( 8,  6, 'up', 'topRight');
+    checkSlot( 8, 12, 'up', 'topRight');
+    checkSlot(12,  6, 'up', 'topRight');
+    checkSlot(12, 12, 'up', 'bottomRight');
+    checkSlot(13, 14, 'up', 'bottomRight');
+    checkSlot(13, 12, 'up', 'bottomRight');
+    checkSlot(13, 20, 'up', 'bottomRight');
 });
