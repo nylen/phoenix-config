@@ -24,10 +24,11 @@ var screens = Screen.allScreensWithNames(function(screen, frame) {
 
 var grid1 = new Grid(screens, 12, {
     thunderbolt : {
-        topLeft     : { x : [0,  6], y : [0,  6] },
-        topRight    : { x : [6, 12], y : [0,  6] },
-        bottomLeft  : { x : [0,  6], y : [6, 12] },
-        bottomRight : { x : [6, 12], y : [6, 12] }
+        topLeft      : { x : [0,  6], y : [0,  7] },
+        topRight     : { x : [6, 12], y : [0,  7] },
+        bottomLeft   : { x : [0,  4], y : [7, 12] },
+        bottomMiddle : { x : [4,  8], y : [7, 12] },
+        bottomRight  : { x : [8, 12], y : [7, 12] }
     },
     retina : {
         full : { x : [0, 12], y : [0, 12] }
