@@ -63,7 +63,7 @@ describe('Grid', function() {
     });
 
     function checkSlot(x, y, dir, expected) {
-        it(dir + ' from (' + x + ', ' + y + ') == ' + expected, function() {
+        it(dir + ' from x=' + x + ' y=' + y + ' == ' + expected, function() {
             var slot = grid.slotInDirection({ x : x, y : y }, dir);
             slot.name.must.eql(expected);
         });
