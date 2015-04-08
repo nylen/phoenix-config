@@ -11,10 +11,10 @@ function Grid(screens, gridSize, slots) {
                 self.slots.push({
                     screen : slotScreen,
                     name   : slotName,
-                    x      : slot.x[0] * frame.width  / gridSize + frame.x,
-                    y      : slot.y[0] * frame.height / gridSize + frame.y,
-                    width  : (slot.x[1] - slot.x[0]) * frame.width  / gridSize,
-                    height : (slot.y[1] - slot.y[0]) * frame.height / gridSize
+                    x      : Math.floor(slot.x[0] * frame.width  / gridSize + frame.x),
+                    y      : Math.floor(slot.y[0] * frame.height / gridSize + frame.y),
+                    width  : Math.floor((slot.x[1] - slot.x[0]) * frame.width  / gridSize),
+                    height : Math.floor((slot.y[1] - slot.y[0]) * frame.height / gridSize)
                 });
             });
         }
