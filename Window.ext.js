@@ -8,4 +8,10 @@ Window.prototype.moveInGrid = function(grid, dir) {
         width  : slot.width,
         height : slot.height
     });
+    if (this.app().title() == 'Terminal') {
+        this.setTopLeft({
+            x : slot.x,
+            y : slot.y
+        });
+    }
 };
