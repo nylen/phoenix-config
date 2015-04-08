@@ -12,6 +12,7 @@ load('Screen.ext.js');
 load('Window.ext.js');
 
 var screens = Screen.allScreensWithNames(function(screen, frame) {
+    // utils.debug(JSON.stringify(frame));
     if (frame.width == 2560 && frame.height == 1440) {
         return 'thunderbolt';
     } else if (frame.width == 1440 && frame.height == 900) {

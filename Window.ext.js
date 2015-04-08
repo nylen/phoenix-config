@@ -1,6 +1,7 @@
 load('utils.js');
 
 Window.prototype.moveInGrid = function(grid, dir) {
+    // utils.debug(JSON.stringify(this.frame()));
     var slot = grid.slotInDirection(this.frame(), dir);
     this.setFrame({
         x      : slot.x,
