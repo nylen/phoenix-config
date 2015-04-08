@@ -130,4 +130,7 @@ describe('Grid', function() {
     checkSlot(13, 14, 'up', 'bottomRight');
     checkSlot(13, 12, 'up', 'bottomRight');
     checkSlot(13, 20, 'up', 'bottomRight');
+
+    // maybe moving down from bottomLeft shouldn't go to the other screen?
+    checkSlot(3, 9, 'down', 'full');
 });
