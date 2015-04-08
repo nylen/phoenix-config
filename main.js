@@ -1,6 +1,14 @@
-function debug(message) {
-    api.alert(message, 5);
+var loaded = {};
+function load(fn) {
+    if (!loaded[fn]) {
+        require('phoenix/' + fn);
+        loaded[fn] = true;
+    }
 }
+
+load('utils.js');
+load('Grid.js');
+load('Screen.ext.js');
 
 var modSwitch   = ['cmd'],
     modMoveGrid = ['alt', 'cmd'],
@@ -11,6 +19,47 @@ var splitLeftRight   = 6,
     splitMiddleLeft  = 4,
     splitMiddleRight = 8,
     margin = { x : 0, y : 0 };
+
+var screens = Screen.allScreensWithNames(function(screen, frame) {
+    if (frame.width == 2560 && frame.height == 1440) {
+        return 'thunderbolt';
+    } else if (frame.width == 1440 && frame.height == 900) {
+        return 'retina';
+    } else {
+        throw new Error('Unrecognized screen: ' + JSON.stringify(frame));
+    }
+});
+
+var grid1 = new Grid(screens, 12, {
+    thunderbolt : {
+        topLeft     : { x : [0,  6], y : [0,  6] },
+        topRight    : { x : [6, 12], y : [0,  6] },
+        bottomLeft  : { x : [0,  6], y : [6, 12] },
+        bottomRight : { x : [6, 12], y : [6, 12] }
+    },
+    retina : {
+        full : { x : [0, 12], y : [0, 12] }
+    }
+});
+
+var grid2 = new Grid(screens, 12, {
+    thunderbolt : {
+        left  : { x : [0,  6], y : [0, 12] },
+        right : { x : [6, 12], y : [0, 12] }
+    },
+    retina : {
+        full : { x : [0, 12], y : [0, 12] }
+    }
+});
+
+var grid3 = new Grid(screens, 12, {
+    thunderbolt : {
+        full : { x : [0, 12], y : [0, 12] }
+    },
+    retina : {
+        full : { x : [0, 12], y : [0, 12] }
+    }
+});
 
 var spots = {
     gridSize     : 12,
@@ -38,7 +87,7 @@ Window.prototype.moveToSpot = function(frame, spot) {
     pos.height = frame.height * (spot.y[1] - spot.y[0]) / spots.gridSize - margin.y;
 
     win.setFrame(pos);
-    debug(JSON.stringify(win.frame()));
+    utils.debug(JSON.stringify(win.frame()));
 };
 
 Window.prototype.positionInGrid = function(frame) {
