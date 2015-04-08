@@ -3,6 +3,9 @@
 load('utils.js');
 
 Screen.allScreensWithNames = function(getName) {
+    // Window.allWindows() can be really slow
+    utils.debug('Loading screens', 1);
+
     var windows = Window.allWindows(),
         screens = {};
 
