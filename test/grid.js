@@ -238,4 +238,9 @@ describe('Grid 3', function() {
     checkSlot(-2560, -164, 'right', 'bottomMiddle');
     checkSlot(-1707, -164, 'right', 'bottomRight');
     checkSlot( -854, -164, 'right', 'full');
+
+    // TODO - moving right from topRight currently goes to bottomRight
+    // checkSlot(-1280, -989, 'right', 'full');
+    // TODO - moving up from full currently goes to topRight
+    // checkSlot(    0,   23, 'up', 'bottomRight');
 });
