@@ -18,7 +18,15 @@ Screen.allScreensWithNames = function(getName) {
     }
 
     windows.forEach(function(win) {
-        addScreen(win.screen());
+        var screen = win.screen();
+        if (screen) {
+            addScreen(screen);
+        } else {
+            utils.debug(
+                'Window has no screen: title=' + win.title()
+                + ' app=' + win.app().title()
+                + ' pid=' + win.app().pid);
+        }
     });
 
     return screens;
