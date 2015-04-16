@@ -23,6 +23,12 @@ a window manager for OS X that is scriptable using JavaScript.
     Retina display.
   - `Ctrl + Alt + Cmd` + `up` maximizes windows.
 
+## Example
+
+Here's how it works (if my Thunderbolt screen is present):
+
+![Screen recording](http://nylen.tv/phoenix-grids-small.gif)
+
 ## Code
 
 - Start in `main.js`
