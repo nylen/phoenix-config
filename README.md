@@ -13,10 +13,15 @@ a window manager for OS X that is scriptable using JavaScript.
 
 - Use modifiers + arrow keys to move windows around in a grid and between
   screens.
-- `Alt + Cmd` + arrows uses a 5-square grid (2 on top, 3 on bottom) on my
-  Thunderbolt display, and all of my Retina display.
-- `Ctrl + Alt + Cmd` + arrows uses the left and right halves of my Thunderbolt
-  display, and all of my Retina display.
+- If Thunderbolt screen is present:
+  - `Alt + Cmd` + arrows uses a 5-square grid (2 on top, 3 on bottom) on my
+    Thunderbolt display, and all of my Retina display.
+  - `Ctrl + Alt + Cmd` + arrows uses the left and right halves of my Thunderbolt
+    display, and all of my Retina display.
+- If Thunderbolt screen is not present:
+  - `Alt + Cmd` + arrows uses moves windows to left/right/top/bottom half of my
+    Retina display.
+  - `Ctrl + Alt + Cmd` + `up` maximizes windows.
 
 ## Code
 
