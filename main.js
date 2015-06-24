@@ -94,50 +94,49 @@ function withThunderbolt() {
 }
 
 function withoutThunderbolt() {
-    // Config if Thunderbolt screen is not present: 3 grid layouts on retina
-    // screen (left/right, top/bottom, full)
+    // Config if Thunderbolt screen is not present: 5 possible positions:
+    //  - top left corner
+    //  - top right corner
+    //  - bottom left corner
+    //  - bottom right corner
+    //  - maximized
+    // This allows easy switching between up to 4 windows at a time, or
+    // temporarily making use of all available screen real estate in one
+    // window.
 
-    var grid1 = new Grid(screens, 12, {
+    var size  = 12,
+        begin = [0, size - 1],
+        end   = [1, size];
+
+    var grid1 = new Grid(screens, size, {
         retina : {
-            left  : { x : [0,  6], y : [0, 12] },
-            right : { x : [6, 12], y : [0, 12] }
+            topLeft     : { x : begin, y : begin },
+            topRight    : { x : end  , y : begin },
+            bottomLeft  : { x : begin, y : end   },
+            bottomRight : { x : end  , y : end   },
         }
     });
 
-    var grid2 = new Grid(screens, 12, {
+    var grid2 = new Grid(screens, size, {
         retina : {
-            top    : { x : [0, 12], y : [0,  6] },
-            bottom : { x : [0, 12], y : [6, 12] }
+            full : { x : [0, size], y : [0, size] }
         }
     });
 
-    var grid3 = new Grid(screens, 12, {
-        retina : {
-            full : { x : [0, 12], y : [0, 12] }
-        }
-    });
-
-    // modMoveGrid + left / right move windows to left or right half of screen
+    // modMoveGrid + anything move windows to corners of screen
     // (grid1)
 
-    ['left', 'right'].forEach(function(dir) {
+    ['left', 'right', 'up', 'down'].forEach(function(dir) {
         api.bind(dir, modMoveGrid, function() {
             Window.focusedWindow().moveInGrid(grid1, dir);
         });
     });
 
-    // modMoveGrid + up / down move windows to top or bottom half of screen
-    // (grid2)
+    // modMoveFull + anything maximizes windows (grid2)
 
-    ['up', 'down'].forEach(function(dir) {
-        api.bind(dir, modMoveGrid, function() {
+    ['left', 'right', 'up', 'down'].forEach(function(dir) {
+        api.bind(dir, modMoveFull, function() {
             Window.focusedWindow().moveInGrid(grid2, dir);
         });
-    });
-
-    // modMoveFull + up maximizes windows (grid3)
-
-    api.bind('up', modMoveFull, function() {
-        Window.focusedWindow().moveInGrid(grid3, 'up');
     });
 }
